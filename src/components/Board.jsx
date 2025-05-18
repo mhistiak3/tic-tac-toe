@@ -1,23 +1,9 @@
-import { useState } from "react";
 import Square from "./Square";
 
-const Board = () => {
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [nextMove, setNextMove] = useState("X");
-  const handleSquare = (i) => {
-    const squaresCopy = squares.slice();
-    if (squaresCopy[i]) {
-      return;
-    }
-
-    squaresCopy[i] = nextMove;
-    setSquares(squaresCopy);
-
-    setNextMove(() => (nextMove === "X" ? "O" : "X"));
-  };
-
+const Board = ({ squares, handleSquare,resetGame }) => {
   return (
-    <div className="flex gap-2 flex-col">
+  <div>
+      <div className="flex gap-2 flex-col mx-auto sm:mx-0">
       <div className="flex gap-2">
         <Square handleSquare={() => handleSquare(0)} value={squares[0]} />
         <Square handleSquare={() => handleSquare(1)} value={squares[1]} />
@@ -34,6 +20,8 @@ const Board = () => {
         <Square handleSquare={() => handleSquare(8)} value={squares[8]} />
       </div>
     </div>
+    <button onClick={resetGame} className="mt-8 cursor-pointer px-5 py-2 bg-primary text-white rounded-sm">Reset Game</button>
+  </div>
   );
 };
 
